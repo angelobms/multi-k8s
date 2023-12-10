@@ -1,0 +1,16 @@
+sudo: required
+language: generic 
+services:
+  - docker
+
+before_install:
+  - docker build -t bmstech/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true bmstech/react-test npm test -- --coverage
+
+after_success:
+  docker build -t bmstech/multi-client ./client
+  docker build -t bmstech/multi-nginx ./nginx
+  docker build -t bmstech/multi-server ./server
+  docker build -t bmstech/multi-worker ./worker
