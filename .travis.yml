@@ -11,14 +11,14 @@ script:
   - docker run -e CI=true stephengrider/react-test npm test
 
 after_success:
-  docker build -t angelobms/multi-client ./client
-  docker build -t angelobms/multi-nginx ./nginx
-  docker build -t angelobms/multi-server ./server
-  docker build -t angelobms/multi-worker ./worker
+  - docker build -t angelobms/multi-client ./client
+  - docker build -t angelobms/multi-nginx ./nginx
+  - docker build -t angelobms/multi-server ./server
+  - docker build -t angelobms/multi-worker ./worker
   # Log in to the docker CLI.
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub.
-  docker push angelobms/multi-client
-  docker push angelobms/multi-nginx
-  docker push angelobms/multi-server
-  docker push angelobms/multi-worker
+  - docker push angelobms/multi-client
+  - docker push angelobms/multi-nginx
+  - docker push angelobms/multi-server
+  - docker push angelobms/multi-worker
